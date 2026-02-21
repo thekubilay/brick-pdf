@@ -1,0 +1,43 @@
+{
+  "name": "brick-pdf",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/brick-pdf.umd.cjs",
+  "module": "./dist/brick-pdf.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/brick-pdf.js",
+      "require": "./dist/brick-pdf.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite --config playground/vite.config.ts",
+    "build": "vue-tsc -b && vite build",
+    "build:lib": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/sortablejs": "^1.15.9",
+    "@vitejs/plugin-vue": "^6.0.2",
+    "@vue/tsconfig": "^0.8.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.3",
+    "vue": "^3.5.25",
+    "vue-tsc": "^3.1.5"
+  },
+  "dependencies": {
+    "@vueuse/core": "14.1.0",
+    "pdfmake": "0.2.18",
+    "sortablejs": "1.15.3"
+  }
+}

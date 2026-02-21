@@ -1,0 +1,8 @@
+export type { ElementNode, ElementStyle, ElementPath } from './element'
+export type { DocumentDefinition, PageSize } from './document'
+export { createDefaultDocument } from './document'
+export type { ElementTypeDefinition } from './registry'
+export type { SelectionState } from './selection'
+export type { HistorySnapshot } from './history'
+export type { ToolbarItem } from './toolbar'
+export type { PropertyFieldDescriptor } from './props'
