@@ -137,7 +137,7 @@ function onCanvasClick(e: MouseEvent): void {
   background-blend-mode: screen;
 }
 
-/* Opaque gap overlay between pages — hides content flowing through */
+/* Opaque overlay — hides content in margin zones and gap between pages */
 .brick-canvas__page::after {
   content: '';
   position: absolute;
@@ -149,27 +149,31 @@ function onCanvasClick(e: MouseEvent): void {
     repeating-linear-gradient(
       to bottom,
       transparent 0px,
-      transparent calc(var(--page-height) - 1px),
-      rgba(0,0,0,0.08) calc(var(--page-height) - 1px),
-      rgba(0,0,0,0.03) calc(var(--page-height) + 4px),
-      transparent calc(var(--page-height) + 4px),
+      transparent calc(var(--content-end) - 1px),
+      rgba(0,0,0,0.08) calc(var(--content-end) - 1px),
+      rgba(0,0,0,0.03) calc(var(--content-end) + 4px),
+      transparent calc(var(--content-end) + 4px),
       transparent var(--slice)
     ),
-    /* page shadow top edge */
+    /* page shadow top edge (at next page content-start) */
     repeating-linear-gradient(
       to bottom,
       transparent 0px,
-      transparent calc(var(--page-height) + var(--gap) - 4px),
-      rgba(0,0,0,0.03) calc(var(--page-height) + var(--gap) - 4px),
-      rgba(0,0,0,0.08) calc(var(--page-height) + var(--gap) - 1px),
-      transparent calc(var(--page-height) + var(--gap) - 1px),
+      transparent calc(var(--page-height) + var(--gap) + var(--margin-top) - 4px),
+      rgba(0,0,0,0.03) calc(var(--page-height) + var(--gap) + var(--margin-top) - 4px),
+      rgba(0,0,0,0.08) calc(var(--page-height) + var(--gap) + var(--margin-top) - 1px),
+      transparent calc(var(--page-height) + var(--gap) + var(--margin-top) - 1px),
       transparent var(--slice)
     ),
-    /* opaque gray gap */
+    /* opaque: top-margin white, content transparent, bottom-margin white, gap gray */
     repeating-linear-gradient(
       to bottom,
-      transparent 0px,
-      transparent var(--page-height),
+      white 0px,
+      white var(--margin-top),
+      transparent var(--margin-top),
+      transparent var(--content-end),
+      white var(--content-end),
+      white var(--page-height),
       #e8e8e8 var(--page-height),
       #e8e8e8 var(--slice)
     );
