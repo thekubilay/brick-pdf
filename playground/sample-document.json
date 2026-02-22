@@ -1,0 +1,394 @@
+{
+  "pageSize": "A4",
+  "pageOrientation": "portrait",
+  "pageMargins": [40, 60, 40, 60],
+  "defaultStyle": {
+    "fontSize": 12
+  },
+  "styles": {},
+  "content": [
+    {
+      "id": "el-title-1",
+      "type": "text",
+      "props": {
+        "text": "Monthly Sales Report"
+      },
+      "style": {
+        "fontSize": 24,
+        "bold": true,
+        "color": "#1565c0",
+        "alignment": "center",
+        "margin": [0, 0, 0, 20]
+      },
+      "children": []
+    },
+    {
+      "id": "el-subtitle-1",
+      "type": "text",
+      "props": {
+        "text": "Q4 2025 — Prepared by Finance Team"
+      },
+      "style": {
+        "fontSize": 12,
+        "italics": true,
+        "color": "#666666",
+        "alignment": "center",
+        "margin": [0, 0, 0, 30]
+      },
+      "children": []
+    },
+    {
+      "id": "el-columns-1",
+      "type": "columns",
+      "props": {
+        "columnGap": 20
+      },
+      "style": {
+        "margin": [0, 0, 0, 20]
+      },
+      "children": [
+        {
+          "id": "el-stack-left",
+          "type": "stack",
+          "props": {},
+          "style": {},
+          "children": [
+            {
+              "id": "el-section-title-1",
+              "type": "text",
+              "props": {
+                "text": "Overview"
+              },
+              "style": {
+                "fontSize": 16,
+                "bold": true,
+                "color": "#333333",
+                "margin": [0, 0, 0, 8]
+              },
+              "children": []
+            },
+            {
+              "id": "el-body-1",
+              "type": "text",
+              "props": {
+                "text": "This quarter showed a 15% increase in total revenue compared to Q3. The growth was primarily driven by the enterprise segment, which exceeded targets by 22%. Customer retention remained strong at 94%."
+              },
+              "style": {
+                "fontSize": 11,
+                "lineHeight": 1.5,
+                "color": "#444444"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "el-stack-right",
+          "type": "stack",
+          "props": {},
+          "style": {},
+          "children": [
+            {
+              "id": "el-section-title-2",
+              "type": "text",
+              "props": {
+                "text": "Key Highlights"
+              },
+              "style": {
+                "fontSize": 16,
+                "bold": true,
+                "color": "#333333",
+                "margin": [0, 0, 0, 8]
+              },
+              "children": []
+            },
+            {
+              "id": "el-highlights-list",
+              "type": "list",
+              "props": {
+                "ordered": false,
+                "items": [
+                  "Revenue: $2.4M (+15%)",
+                  "New customers: 186",
+                  "Enterprise deals: 12 closed",
+                  "Churn rate: 6% (down from 8%)",
+                  "NPS score: 72"
+                ]
+              },
+              "style": {
+                "fontSize": 11,
+                "color": "#444444"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "el-table-title",
+      "type": "text",
+      "props": {
+        "text": "Revenue Breakdown by Region"
+      },
+      "style": {
+        "fontSize": 16,
+        "bold": true,
+        "color": "#333333",
+        "margin": [0, 20, 0, 10]
+      },
+      "children": []
+    },
+    {
+      "id": "el-table-1",
+      "type": "table",
+      "props": {
+        "headerRows": 1,
+        "widths": ["*", "*", "*", "*"],
+        "body": [
+          ["Region", "Q3 Revenue", "Q4 Revenue", "Growth"],
+          ["North America", "$820K", "$945K", "+15.2%"],
+          ["Europe", "$510K", "$580K", "+13.7%"],
+          ["Asia Pacific", "$390K", "$470K", "+20.5%"],
+          ["Latin America", "$180K", "$215K", "+19.4%"],
+          ["Total", "$1.9M", "$2.21M", "+16.3%"]
+        ],
+        "layout": "grid"
+      },
+      "style": {
+        "fontSize": 11,
+        "margin": [0, 0, 0, 20]
+      },
+      "children": []
+    },
+    {
+      "id": "el-next-steps-title",
+      "type": "text",
+      "props": {
+        "text": "Next Steps for Q1 2026"
+      },
+      "style": {
+        "fontSize": 16,
+        "bold": true,
+        "color": "#333333",
+        "margin": [0, 10, 0, 10]
+      },
+      "children": []
+    },
+    {
+      "id": "el-next-steps-list",
+      "type": "list",
+      "props": {
+        "ordered": true,
+        "items": [
+          "Launch enterprise tier pricing update",
+          "Expand APAC sales team by 3 headcount",
+          "Roll out customer success automation",
+          "Target 200 new customers",
+          "Reduce churn to below 5%"
+        ]
+      },
+      "style": {
+        "fontSize": 11,
+        "color": "#444444",
+        "margin": [0, 0, 0, 30]
+      },
+      "children": []
+    },
+    {
+      "id": "el-two-texts-title",
+      "type": "text",
+      "props": {
+        "text": "Side-by-Side Text Blocks"
+      },
+      "style": {
+        "fontSize": 16,
+        "bold": true,
+        "color": "#333333",
+        "margin": [0, 10, 0, 10]
+      },
+      "children": []
+    },
+    {
+      "id": "el-columns-texts",
+      "type": "columns",
+      "props": {
+        "columnGap": 20
+      },
+      "style": {
+        "margin": [0, 0, 0, 20]
+      },
+      "children": [
+        {
+          "id": "el-text-left",
+          "type": "text",
+          "props": {
+            "text": "The enterprise segment continued to be the primary growth driver in Q4. Key wins included three Fortune 500 contracts and a strategic partnership with TechCorp, contributing $320K in new ARR."
+          },
+          "style": {
+            "fontSize": 11,
+            "lineHeight": 1.5,
+            "color": "#444444"
+          },
+          "children": []
+        },
+        {
+          "id": "el-text-right",
+          "type": "text",
+          "props": {
+            "text": "The SMB segment showed steady growth with a 12% increase in new sign-ups. Self-serve onboarding improvements reduced time-to-value by 40%, and the average deal size grew from $2.1K to $2.8K MRR."
+          },
+          "style": {
+            "fontSize": 11,
+            "lineHeight": 1.5,
+            "color": "#444444"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "el-two-tables-title",
+      "type": "text",
+      "props": {
+        "text": "Side-by-Side Tables"
+      },
+      "style": {
+        "fontSize": 16,
+        "bold": true,
+        "color": "#333333",
+        "margin": [0, 10, 0, 10]
+      },
+      "children": []
+    },
+    {
+      "id": "el-columns-tables",
+      "type": "columns",
+      "props": {
+        "columnGap": 20
+      },
+      "style": {
+        "margin": [0, 0, 0, 20]
+      },
+      "children": [
+        {
+          "id": "el-table-left",
+          "type": "table",
+          "props": {
+            "headerRows": 1,
+            "widths": ["*", "*"],
+            "body": [
+              ["Product", "Revenue"],
+              ["Pro Plan", "$1.2M"],
+              ["Enterprise", "$850K"],
+              ["Starter", "$160K"]
+            ],
+            "layout": "grid"
+          },
+          "style": {
+            "fontSize": 10
+          },
+          "children": []
+        },
+        {
+          "id": "el-table-right",
+          "type": "table",
+          "props": {
+            "headerRows": 1,
+            "widths": ["*", "*"],
+            "body": [
+              ["Channel", "Customers"],
+              ["Direct Sales", "94"],
+              ["Self-Serve", "68"],
+              ["Partners", "24"]
+            ],
+            "layout": "grid"
+          },
+          "style": {
+            "fontSize": 10
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "el-qr-section",
+      "type": "columns",
+      "props": {
+        "columnGap": 15
+      },
+      "style": {
+        "margin": [0, 10, 0, 0]
+      },
+      "children": [
+        {
+          "id": "el-footer-text",
+          "type": "text",
+          "props": {
+            "text": "This report is confidential and intended for internal use only.\nFor the full interactive dashboard, scan the QR code."
+          },
+          "style": {
+            "fontSize": 9,
+            "italics": true,
+            "color": "#999999",
+            "lineHeight": 1.4
+          },
+          "children": []
+        },
+        {
+          "id": "el-qr-1",
+          "type": "qr",
+          "props": {
+            "data": "https://dashboard.example.com/q4-2025",
+            "fit": 80
+          },
+          "style": {
+            "alignment": "right"
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "el-pagebreak-1",
+      "type": "pageBreak",
+      "props": {},
+      "style": {},
+      "children": []
+    },
+    {
+      "id": "el-page2-title",
+      "type": "text",
+      "props": {
+        "text": "Appendix: Detailed Metrics"
+      },
+      "style": {
+        "fontSize": 20,
+        "bold": true,
+        "color": "#1565c0",
+        "alignment": "center",
+        "margin": [0, 0, 0, 20]
+      },
+      "children": []
+    },
+    {
+      "id": "el-detail-table",
+      "type": "table",
+      "props": {
+        "headerRows": 1,
+        "widths": ["*", "*", "*", "*", "*"],
+        "body": [
+          ["Month", "Revenue", "Customers", "Deals", "NPS"],
+          ["October", "$720K", "58", "4", "70"],
+          ["November", "$740K", "62", "3", "71"],
+          ["December", "$750K", "66", "5", "74"]
+        ],
+        "layout": "lightHorizontalLines"
+      },
+      "style": {
+        "fontSize": 11
+      },
+      "children": []
+    }
+  ]
+}
