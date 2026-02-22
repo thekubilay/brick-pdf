@@ -1,6 +1,6 @@
 {
   "name": "brick-pdf",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "main": "./dist/brick-pdf.umd.cjs",
   "module": "./dist/brick-pdf.js",
