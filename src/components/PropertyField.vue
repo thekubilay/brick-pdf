@@ -10,7 +10,7 @@ const props = defineProps<{
 
 const actions = useElementActions()
 
-const value = computed(() => {
+const rawValue = computed(() => {
   const parts = props.descriptor.key.split('.')
   const section = parts[0] as string
   const key = parts[1] as string
@@ -22,14 +22,30 @@ const value = computed(() => {
   return undefined
 })
 
+// For textarea: if underlying data is an array, show as newline-joined string
+const value = computed(() => {
+  const raw = rawValue.value
+  if (props.descriptor.type === 'textarea' && Array.isArray(raw)) {
+    return raw.join('\n')
+  }
+  return raw
+})
+
 function onUpdate(newValue: unknown): void {
   const parts = props.descriptor.key.split('.')
   const section = parts[0] as string
   const key = parts[1] as string
+
+  // For textarea: if underlying data was an array, convert back to array
+  let finalValue = newValue
+  if (props.descriptor.type === 'textarea' && Array.isArray(rawValue.value)) {
+    finalValue = (newValue as string).split('\n')
+  }
+
   if (section === 'props') {
-    actions.updateProps(props.node.id, { [key]: newValue })
+    actions.updateProps(props.node.id, { [key]: finalValue })
   } else if (section === 'style') {
-    actions.updateStyle(props.node.id, { [key]: newValue })
+    actions.updateStyle(props.node.id, { [key]: finalValue })
   }
 }
 

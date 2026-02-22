@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { watch, toRaw } from 'vue'
+import { useMagicKeys, whenever } from '@vueuse/core'
 import type { DocumentDefinition } from '../types'
 import { createDefaultDocument } from '../types'
 import { registerBuiltinElements } from '../registry/builtinRegistration'
@@ -58,6 +59,28 @@ provideClipboard(clipboard)
 
 const resize = createResize(actions)
 provideResize(resize)
+
+const keys = useMagicKeys()
+const deleteKey = keys['Delete']!
+const backspaceKey = keys['Backspace']!
+
+whenever(deleteKey, () => {
+  if (!selection.selectedId.value) return
+  const active = document.activeElement
+  if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.tagName === 'SELECT')) return
+  const id = selection.selectedId.value
+  selection.deselect()
+  actions.removeElement(id)
+})
+
+whenever(backspaceKey, () => {
+  if (!selection.selectedId.value) return
+  const active = document.activeElement
+  if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.tagName === 'SELECT')) return
+  const id = selection.selectedId.value
+  selection.deselect()
+  actions.removeElement(id)
+})
 
 watch(
   () => store.document,

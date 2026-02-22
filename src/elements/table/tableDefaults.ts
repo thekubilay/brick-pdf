@@ -8,9 +8,10 @@ export function defaultTableProps(): Record<string, unknown> {
       ['Header 1', 'Header 2'],
       ['Cell 1', 'Cell 2'],
     ],
+    layout: 'lightHorizontalLines',
   }
 }
 
 export function defaultTableStyle(): ElementStyle {
-  return {}
+  return { fontSize: 12 }
 }

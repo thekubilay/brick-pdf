@@ -2,7 +2,6 @@
 import { useSelection } from '../composables'
 import ToolbarElementList from './ToolbarElementList.vue'
 import PropertyEditor from './PropertyEditor.vue'
-import DocumentSettings from './DocumentSettings.vue'
 
 const selection = useSelection()
 </script>
@@ -17,11 +16,6 @@ const selection = useSelection()
     <div v-if="selection.selectedNode.value" class="brick-toolbar__section">
       <h3 class="brick-toolbar__title">Properties</h3>
       <PropertyEditor />
-    </div>
-
-    <div class="brick-toolbar__section">
-      <h3 class="brick-toolbar__title">Document</h3>
-      <DocumentSettings />
     </div>
   </div>
 </template>

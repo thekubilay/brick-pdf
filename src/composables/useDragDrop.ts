@@ -26,6 +26,7 @@ export function createDragDrop(store: DocumentStore, actions: ElementActionsApi)
       animation: 150,
       fallbackOnBody: true,
       swapThreshold: 0.65,
+      emptyInsertThreshold: 80,
       onAdd(evt) {
         const itemEl = evt.item
         const elementType = itemEl.dataset.elementType

@@ -7,6 +7,8 @@ export interface DocumentStore {
   findNodeById(id: string): { node: ElementNode; parent: ElementNode[]; index: number } | null
   replaceContent(content: ElementNode[]): void
   snapshotContent(): ElementNode[]
+  loadDocument(def: DocumentDefinition): void
+  exportDocument(): DocumentDefinition
 }
 
 const DOCUMENT_STORE_KEY: InjectionKey<DocumentStore> = Symbol('brick-pdf-document-store')
@@ -41,7 +43,20 @@ export function createDocumentStore(initial?: DocumentDefinition): DocumentStore
     return JSON.parse(JSON.stringify(toRaw(document.content))) as ElementNode[]
   }
 
-  return { document, findNodeById, replaceContent, snapshotContent }
+  function loadDocument(def: DocumentDefinition): void {
+    document.pageSize = def.pageSize
+    document.pageOrientation = def.pageOrientation
+    document.pageMargins = def.pageMargins
+    document.defaultStyle = def.defaultStyle ?? { fontSize: 12 }
+    document.styles = def.styles ?? {}
+    document.content.splice(0, document.content.length, ...def.content)
+  }
+
+  function exportDocument(): DocumentDefinition {
+    return JSON.parse(JSON.stringify(toRaw(document))) as DocumentDefinition
+  }
+
+  return { document, findNodeById, replaceContent, snapshotContent, loadDocument, exportDocument }
 }
 
 export function provideDocumentStore(store: DocumentStore): void {

@@ -5,6 +5,7 @@ import Sortable from 'sortablejs'
 
 const props = defineProps<{
   parentId: string | null
+  layout?: 'vertical' | 'horizontal'
 }>()
 
 const el = ref<HTMLElement | null>(null)
@@ -23,7 +24,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="el" class="brick-dropzone">
+  <div ref="el" class="brick-dropzone" :class="{ 'brick-dropzone--horizontal': layout === 'horizontal' }">
     <slot />
     <div v-if="!$slots.default" class="brick-dropzone__empty">
       Drop elements here
@@ -34,6 +35,16 @@ onBeforeUnmount(() => {
 <style scoped>
 .brick-dropzone {
   min-height: 40px;
+}
+
+.brick-dropzone--horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.brick-dropzone--horizontal > :deep(*) {
+  flex: 1;
+  min-width: 0;
 }
 
 .brick-dropzone__empty {

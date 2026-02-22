@@ -1,4 +1,4 @@
-import { provide, inject, type InjectionKey } from 'vue'
+import { toRaw, provide, inject, type InjectionKey } from 'vue'
 import type { ElementNode } from '../types'
 import type { DocumentStore } from './useDocumentStore'
 import { getElementDefinition } from '../registry/elementRegistry'
@@ -39,8 +39,8 @@ export function createPdfExport(store: DocumentStore): PdfExportApi {
       pageSize: doc.pageSize,
       pageOrientation: doc.pageOrientation,
       pageMargins: doc.pageMargins,
-      defaultStyle: structuredClone(doc.defaultStyle),
-      styles: structuredClone(doc.styles),
+      defaultStyle: JSON.parse(JSON.stringify(toRaw(doc.defaultStyle))),
+      styles: JSON.parse(JSON.stringify(toRaw(doc.styles))),
       content: doc.content.map(convertNode),
     }
   }
