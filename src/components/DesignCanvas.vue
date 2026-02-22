@@ -48,9 +48,6 @@ function onCanvasClick(e: MouseEvent): void {
         :style="{
           width: pageWidth + 'px',
           minHeight: pageHeight + 'px',
-          '--page-height': pageHeight + 'px',
-          '--margin-top': store.document.pageMargins[1] * SCALE + 'px',
-          '--margin-bottom': store.document.pageMargins[3] * SCALE + 'px',
           paddingTop: store.document.pageMargins[1] * SCALE + 'px',
           paddingRight: store.document.pageMargins[2] * SCALE + 'px',
           paddingBottom: store.document.pageMargins[3] * SCALE + 'px',
@@ -99,84 +96,6 @@ function onCanvasClick(e: MouseEvent): void {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   background: white;
 
-  --gap: 28px;
-  --slice: calc(var(--page-height) + var(--gap));
-  --content-start: var(--margin-top);
-  --content-end: calc(var(--page-height) - var(--margin-bottom));
-}
-
-/* Dashed margin guide lines */
-.brick-canvas__page::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.2;
-  background:
-    /* horizontal dash pattern */
-    repeating-linear-gradient(
-      to right,
-      black 0px, black 5px,
-      white 5px, white 10px
-    ),
-    /* 1px lines at margin-top and margin-bottom positions */
-    repeating-linear-gradient(
-      to bottom,
-      white 0px,
-      white calc(var(--content-start) - 1px),
-      black calc(var(--content-start) - 1px),
-      black var(--content-start),
-      white var(--content-start),
-      white var(--content-end),
-      black var(--content-end),
-      black calc(var(--content-end) + 1px),
-      white calc(var(--content-end) + 1px),
-      white var(--slice)
-    );
-  background-blend-mode: screen;
-}
-
-/* Opaque overlay — hides content in margin zones and gap between pages */
-.brick-canvas__page::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background:
-    /* page shadow bottom edge */
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent calc(var(--content-end) - 1px),
-      rgba(0,0,0,0.08) calc(var(--content-end) - 1px),
-      rgba(0,0,0,0.03) calc(var(--content-end) + 4px),
-      transparent calc(var(--content-end) + 4px),
-      transparent var(--slice)
-    ),
-    /* page shadow top edge (at next page content-start) */
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent calc(var(--page-height) + var(--gap) + var(--margin-top) - 4px),
-      rgba(0,0,0,0.03) calc(var(--page-height) + var(--gap) + var(--margin-top) - 4px),
-      rgba(0,0,0,0.08) calc(var(--page-height) + var(--gap) + var(--margin-top) - 1px),
-      transparent calc(var(--page-height) + var(--gap) + var(--margin-top) - 1px),
-      transparent var(--slice)
-    ),
-    /* opaque: top-margin white, content transparent, bottom-margin white, gap gray */
-    repeating-linear-gradient(
-      to bottom,
-      white 0px,
-      white var(--margin-top),
-      transparent var(--margin-top),
-      transparent var(--content-end),
-      white var(--content-end),
-      white var(--page-height),
-      #e8e8e8 var(--page-height),
-      #e8e8e8 var(--slice)
-    );
 }
 
 .brick-canvas__page > :deep(.brick-dropzone) {

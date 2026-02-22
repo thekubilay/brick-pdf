@@ -1,4 +1,4 @@
-import { provide, inject, type InjectionKey } from 'vue'
+import { provide, inject, ref, type InjectionKey, type Ref } from 'vue'
 import Sortable from 'sortablejs'
 import { getElementDefinition } from '../registry/elementRegistry'
 import type { ElementActionsApi } from './useElementActions'
@@ -7,16 +7,21 @@ import type { DocumentStore } from './useDocumentStore'
 export interface DragDropApi {
   initToolbar(el: HTMLElement): Sortable
   initContainer(el: HTMLElement, parentId: string | null): Sortable
+  isDragging: Ref<boolean>
 }
 
 const DRAG_DROP_KEY: InjectionKey<DragDropApi> = Symbol('brick-pdf-drag-drop')
 
 export function createDragDrop(store: DocumentStore, actions: ElementActionsApi): DragDropApi {
+  const isDragging = ref(false)
+
   function initToolbar(el: HTMLElement): Sortable {
     return Sortable.create(el, {
       group: { name: 'brick-elements', pull: 'clone', put: false },
       sort: false,
       animation: 150,
+      onStart() { isDragging.value = true },
+      onEnd() { isDragging.value = false },
     })
   }
 
@@ -25,8 +30,10 @@ export function createDragDrop(store: DocumentStore, actions: ElementActionsApi)
       group: { name: 'brick-elements', put: true },
       animation: 150,
       fallbackOnBody: true,
-      swapThreshold: 0.65,
-      emptyInsertThreshold: 80,
+      swapThreshold: 0.5,
+      emptyInsertThreshold: 5,
+      ghostClass: 'brick-sortable-ghost',
+      onStart() { isDragging.value = true },
       onAdd(evt) {
         const itemEl = evt.item
         const elementType = itemEl.dataset.elementType
@@ -49,6 +56,7 @@ export function createDragDrop(store: DocumentStore, actions: ElementActionsApi)
         actions.addElement(elementType, parentId, evt.newIndex)
       },
       onEnd(evt) {
+        isDragging.value = false
         if (evt.from === evt.to && evt.oldIndex !== undefined && evt.newIndex !== undefined) {
           const children = parentId
             ? store.findNodeById(parentId)?.node.children
@@ -62,7 +70,7 @@ export function createDragDrop(store: DocumentStore, actions: ElementActionsApi)
     })
   }
 
-  return { initToolbar, initContainer }
+  return { initToolbar, initContainer, isDragging }
 }
 
 export function provideDragDrop(api: DragDropApi): void {

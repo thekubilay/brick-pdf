@@ -2,9 +2,8 @@
 import { ref } from 'vue'
 import { BrickPdf } from '../src/index'
 import type { DocumentDefinition } from '../src/types'
-import sampleDocument from './sample-document.json'
 
-const doc = ref<DocumentDefinition>(sampleDocument as unknown as DocumentDefinition)
+const doc = ref<DocumentDefinition>(undefined)
 
 function onUpdate(value: DocumentDefinition) {
   doc.value = value
