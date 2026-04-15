@@ -10,7 +10,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/brick-pdf.js",
       "require": "./dist/brick-pdf.umd.cjs"
-    }
+    },
+    "./dist/brick-pdf.css": "./dist/brick-pdf.css",
+    "./style.css": "./dist/brick-pdf.css",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
