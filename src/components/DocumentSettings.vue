@@ -55,10 +55,10 @@ function updateMargin(index: number, value: number): void {
       <label>Font Size</label>
       <input
         type="number"
-        :value="store.document.defaultStyle.fontSize ?? 12"
+        :value="store.document.defaultStyle?.fontSize ?? 12"
         min="6"
         max="72"
-        @input="store.document.defaultStyle.fontSize = Number(($event.target as HTMLInputElement).value)"
+        @input="(store.document.defaultStyle ??= {}).fontSize = Number(($event.target as HTMLInputElement).value)"
       />
     </div>
   </div>

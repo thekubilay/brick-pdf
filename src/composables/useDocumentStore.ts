@@ -2,6 +2,7 @@ import { reactive, toRaw, provide, inject, type InjectionKey } from 'vue'
 import type { DocumentDefinition, ElementNode } from '../types'
 import { createDefaultDocument } from '../types'
 
+
 export interface DocumentStore {
   document: DocumentDefinition
   findNodeById(id: string): { node: ElementNode; parent: ElementNode[]; index: number } | null
@@ -13,8 +14,30 @@ export interface DocumentStore {
 
 const DOCUMENT_STORE_KEY: InjectionKey<DocumentStore> = Symbol('brick-pdf-document-store')
 
+function normalizeDocument(doc: DocumentDefinition): DocumentDefinition {
+  const defaults = createDefaultDocument()
+  return {
+    pageSize: doc.pageSize ?? defaults.pageSize,
+    pageOrientation: doc.pageOrientation ?? defaults.pageOrientation,
+    pageMargins: doc.pageMargins ?? defaults.pageMargins,
+    defaultStyle: doc.defaultStyle ?? defaults.defaultStyle,
+    styles: doc.styles ?? defaults.styles,
+    content: doc.content ?? defaults.content,
+  }
+}
+
+function normalizeNode(node: ElementNode): ElementNode {
+  node.props = node.props ?? {}
+  node.style = node.style ?? {}
+  node.children = node.children ?? []
+  for (const c of node.children) normalizeNode(c)
+  return node
+}
+
 export function createDocumentStore(initial?: DocumentDefinition): DocumentStore {
-  const document = reactive(initial ?? createDefaultDocument()) as DocumentDefinition
+  const normalized = initial ? normalizeDocument(initial) : createDefaultDocument()
+  for (const n of normalized.content) normalizeNode(n)
+  const document = reactive(normalized) as DocumentDefinition
 
   function findNodeById(
     id: string,
@@ -44,12 +67,14 @@ export function createDocumentStore(initial?: DocumentDefinition): DocumentStore
   }
 
   function loadDocument(def: DocumentDefinition): void {
-    document.pageSize = def.pageSize
-    document.pageOrientation = def.pageOrientation
-    document.pageMargins = def.pageMargins
-    document.defaultStyle = def.defaultStyle ?? { fontSize: 12 }
-    document.styles = def.styles ?? {}
-    document.content.splice(0, document.content.length, ...def.content)
+    const n = normalizeDocument(def)
+    for (const node of n.content) normalizeNode(node)
+    document.pageSize = n.pageSize
+    document.pageOrientation = n.pageOrientation
+    document.pageMargins = n.pageMargins
+    document.defaultStyle = n.defaultStyle
+    document.styles = n.styles
+    document.content.splice(0, document.content.length, ...n.content)
   }
 
   function exportDocument(): DocumentDefinition {
