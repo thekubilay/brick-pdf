@@ -22,7 +22,7 @@ const selection = useSelection()
 
 <style scoped>
 .brick-toolbar {
-  width: 280px;
+  width: 460px;
   background: white;
   border-left: 1px solid #e0e0e0;
   overflow-y: auto;

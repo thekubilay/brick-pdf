@@ -7,7 +7,7 @@ const doc = ref<DocumentDefinition>(undefined)
 
 function onUpdate(value: DocumentDefinition) {
   doc.value = value
-  console.log('Document updated:', JSON.stringify(value, null, 2))
+  // console.log('Document updated:', JSON.stringify(value, null, 2))
 }
 </script>
 

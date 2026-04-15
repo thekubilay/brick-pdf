@@ -163,26 +163,30 @@ function onFileChange(e: Event): void {
 
 <style scoped>
 .brick-field {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .brick-field__label {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
-  color: #666;
-  margin-bottom: 3px;
+  color: #555;
+  margin-bottom: 5px;
 }
 
 .brick-field__input,
 .brick-field__textarea,
 .brick-field__select {
   width: 100%;
-  padding: 4px 8px;
+  padding: 7px 10px;
   border: 1px solid #ddd;
-  border-radius: 3px;
-  font-size: 12px;
+  border-radius: 4px;
+  font-size: 13px;
   box-sizing: border-box;
+}
+
+.brick-field__textarea {
+  min-height: 72px;
 }
 
 .brick-field__input:focus,
@@ -199,7 +203,7 @@ function onFileChange(e: Event): void {
 
 .brick-field__color {
   width: 100%;
-  height: 28px;
+  height: 34px;
   padding: 0;
   border: 1px solid #ddd;
   border-radius: 3px;
@@ -222,10 +226,10 @@ function onFileChange(e: Event): void {
 
 .brick-field__margin-input {
   width: 100%;
-  padding: 4px;
+  padding: 6px 4px;
   border: 1px solid #ddd;
-  border-radius: 3px;
-  font-size: 11px;
+  border-radius: 4px;
+  font-size: 12px;
   text-align: center;
   box-sizing: border-box;
 }

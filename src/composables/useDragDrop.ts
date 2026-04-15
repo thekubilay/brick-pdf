@@ -36,32 +36,55 @@ export function createDragDrop(store: DocumentStore, actions: ElementActionsApi)
       onStart() { isDragging.value = true },
       onAdd(evt) {
         const itemEl = evt.item
+        const elementId = itemEl.dataset.elementId
         const elementType = itemEl.dataset.elementType
+
+        // Target validation (applies to both new + existing moves)
+        const rejectByType = (type: string | undefined): boolean => {
+          if (!parentId || !type) return false
+          const parentResult = store.findNodeById(parentId)
+          if (!parentResult) return false
+          const parentDef = getElementDefinition(parentResult.node.type)
+          return !!(parentDef?.acceptsChildTypes && !parentDef.acceptsChildTypes.includes(type))
+        }
+
+        if (elementId) {
+          // Existing canvas element moved between containers.
+          // Detach Sortable's moved DOM node entirely — Vue will unmount the
+          // old vnode (safe on a detached node via parentNode?.removeChild)
+          // and freshly mount a new DOM node in the target container.
+          itemEl.parentNode?.removeChild(itemEl)
+
+          if (rejectByType(elementType)) return
+
+          actions.moveElement(elementId, parentId, evt.newIndex ?? 0)
+          return
+        }
+
         if (!elementType) return
 
-        // Remove the DOM element that SortableJS added (Vue will re-render)
+        // New element cloned from the toolbar — drop Sortable's clone,
+        // let the state mutation re-render the real component.
         itemEl.parentNode?.removeChild(itemEl)
 
-        // Validate acceptsChildTypes
-        if (parentId) {
-          const parentResult = store.findNodeById(parentId)
-          if (parentResult) {
-            const parentDef = getElementDefinition(parentResult.node.type)
-            if (parentDef?.acceptsChildTypes && !parentDef.acceptsChildTypes.includes(elementType)) {
-              return
-            }
-          }
-        }
+        if (rejectByType(elementType)) return
 
         actions.addElement(elementType, parentId, evt.newIndex)
       },
       onEnd(evt) {
         isDragging.value = false
-        if (evt.from === evt.to && evt.oldIndex !== undefined && evt.newIndex !== undefined) {
+        // Same-parent reorder — cross-container moves are handled in onAdd.
+        if (
+          evt.from === evt.to &&
+          evt.oldIndex !== undefined &&
+          evt.newIndex !== undefined &&
+          evt.oldIndex !== evt.newIndex &&
+          evt.item.dataset.elementId
+        ) {
           const children = parentId
             ? store.findNodeById(parentId)?.node.children
             : store.document.content
-          if (!children || evt.oldIndex === evt.newIndex) return
+          if (!children) return
 
           const moved = children.splice(evt.oldIndex, 1)[0]
           if (moved) children.splice(evt.newIndex, 0, moved)

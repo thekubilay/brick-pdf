@@ -7,7 +7,6 @@ import { imageDefinition } from '../elements/image'
 import { listDefinition } from '../elements/list'
 import { qrDefinition } from '../elements/qr'
 import { svgDefinition } from '../elements/svg'
-import { canvasDrawDefinition } from '../elements/canvas'
 import { pageBreakDefinition } from '../elements/pageBreak'
 
 let registered = false
@@ -24,6 +23,5 @@ export function registerBuiltinElements(): void {
   registerElement(listDefinition)
   registerElement(qrDefinition)
   registerElement(svgDefinition)
-  registerElement(canvasDrawDefinition)
   registerElement(pageBreakDefinition)
 }

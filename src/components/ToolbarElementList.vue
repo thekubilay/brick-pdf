@@ -37,7 +37,7 @@ onBeforeUnmount(() => {
 <style scoped>
 .brick-element-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 6px;
 }
 
