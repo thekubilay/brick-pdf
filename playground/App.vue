@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { BrickPdf } from '../src/index'
-import type { DocumentDefinition } from '../src/types'
+import type { DocumentDefinition } from '../src'
 
 const doc = ref<DocumentDefinition>(undefined)
 
