@@ -69,6 +69,7 @@ function onFileSelected(e: Event): void {
 
 <template>
   <div class="brick-actionbar">
+    <!--
     <div class="brick-actionbar__group">
       <input
         v-model="documentName"
@@ -78,6 +79,7 @@ function onFileSelected(e: Event): void {
         title="Document name (used for export filename)"
       />
     </div>
+    -->
 
     <div class="brick-actionbar__group">
       <button
