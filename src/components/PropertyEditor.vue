@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useSelection } from '../composables'
+import { useSelection, useElementActions } from '../composables'
 import { getElementDefinition } from '../registry/elementRegistry'
 import type { PropertyFieldDescriptor } from '../types'
 import PropertyField from './PropertyField.vue'
 
 const selection = useSelection()
+const actions = useElementActions()
+
+function onKeyInput(e: Event): void {
+  const node = selection.selectedNode.value
+  if (!node) return
+  actions.updateKey(node.id, (e.target as HTMLInputElement).value)
+}
 
 const definition = computed(() => {
   const node = selection.selectedNode.value
@@ -37,6 +44,17 @@ const sectionOrder = ['content', 'style', 'layout', 'advanced']
   <div v-if="selection.selectedNode.value && definition" class="brick-property-editor">
     <div class="brick-property-editor__type">
       {{ definition.icon }} {{ definition.label }}
+    </div>
+
+    <div class="brick-property-editor__key">
+      <label class="brick-property-editor__key-label">Key</label>
+      <input
+        type="text"
+        class="brick-property-editor__key-input"
+        :value="selection.selectedNode.value.key ?? ''"
+        placeholder="(optional identifier)"
+        @input="onKeyInput"
+      />
     </div>
 
     <template v-for="section in sectionOrder" :key="section">
@@ -78,5 +96,32 @@ const sectionOrder = ['content', 'style', 'layout', 'advanced']
   letter-spacing: 0.5px;
   color: #888;
   margin-bottom: 6px;
+}
+
+.brick-property-editor__key {
+  margin-bottom: 12px;
+}
+
+.brick-property-editor__key-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.brick-property-editor__key-input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.brick-property-editor__key-input:focus {
+  outline: none;
+  border-color: #1976d2;
 }
 </style>

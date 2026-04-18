@@ -11,6 +11,7 @@ export interface ElementActionsApi {
   duplicateElement(id: string): ElementNode | null
   updateProps(id: string, props: Record<string, unknown>): void
   updateStyle(id: string, style: Partial<ElementStyle>): void
+  updateKey(id: string, key: string): void
 }
 
 const ELEMENT_ACTIONS_KEY: InjectionKey<ElementActionsApi> = Symbol('brick-pdf-element-actions')
@@ -98,7 +99,18 @@ export function createElementActions(store: DocumentStore, history: HistoryApi):
     Object.assign(result.node.style, style)
   }
 
-  return { addElement, removeElement, moveElement, duplicateElement, updateProps, updateStyle }
+  function updateKey(id: string, key: string): void {
+    const result = store.findNodeById(id)
+    if (!result) return
+    history.record()
+    if (key) {
+      result.node.key = key
+    } else {
+      delete result.node.key
+    }
+  }
+
+  return { addElement, removeElement, moveElement, duplicateElement, updateProps, updateStyle, updateKey }
 }
 
 export function provideElementActions(api: ElementActionsApi): void {

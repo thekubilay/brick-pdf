@@ -1,6 +1,7 @@
 export interface ElementNode {
   id: string
   type: string
+  key?: string
   props: Record<string, unknown>
   style: ElementStyle
   children: ElementNode[]
