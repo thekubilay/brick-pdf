@@ -17,6 +17,7 @@ export function createDefaultDocument(): DocumentDefinition {
     pageOrientation: 'portrait',
     pageMargins: [40, 60, 40, 60],
     defaultStyle: {
+      font: 'NotoSansJP',
       fontSize: 12,
     },
     styles: {},

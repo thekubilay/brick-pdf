@@ -1,6 +1,13 @@
 declare module 'pdfmake/build/pdfmake' {
+  interface FontFamily {
+    normal: string
+    bold: string
+    italics: string
+    bolditalics: string
+  }
   const pdfMake: {
     vfs: Record<string, string>
+    fonts?: Record<string, FontFamily>
     createPdf(docDefinition: Record<string, unknown>): {
       download(filename?: string): void
       open(): void

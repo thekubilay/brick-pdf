@@ -2,6 +2,7 @@ import { toRaw, provide, inject, type InjectionKey } from 'vue'
 import type { ElementNode } from '../types'
 import type { DocumentStore } from './useDocumentStore'
 import { getElementDefinition } from '../registry/elementRegistry'
+import { loadNotoSansJp } from '../fonts/notoSansJp'
 
 export interface PdfExportApi {
   toDocumentDefinition(): Record<string, unknown>
@@ -54,6 +55,17 @@ export function createPdfExport(store: DocumentStore): PdfExportApi {
       pdfMake.vfs = fonts.vfs
     } else if ((pdfFontsModule as Record<string, unknown>).default) {
       pdfMake.vfs = (pdfFontsModule as Record<string, unknown>).default as Record<string, string>
+    }
+    const noto = await loadNotoSansJp()
+    pdfMake.vfs = { ...pdfMake.vfs, ...noto.vfs }
+    pdfMake.fonts = {
+      Roboto: {
+        normal: 'Roboto-Regular.ttf',
+        bold: 'Roboto-Medium.ttf',
+        italics: 'Roboto-Italic.ttf',
+        bolditalics: 'Roboto-MediumItalic.ttf',
+      },
+      ...noto.fonts,
     }
     return pdfMake
   }
