@@ -8,6 +8,9 @@ declare module 'pdfmake/build/pdfmake' {
   const pdfMake: {
     vfs: Record<string, string>
     fonts?: Record<string, FontFamily>
+    addVirtualFileSystem(vfs: Record<string, string>): void
+    setFonts(fonts: Record<string, FontFamily>): void
+    addFonts(fonts: Record<string, FontFamily>): void
     createPdf(docDefinition: Record<string, unknown>): {
       download(filename?: string): void
       open(): void

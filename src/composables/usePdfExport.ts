@@ -50,15 +50,13 @@ export function createPdfExport(store: DocumentStore): PdfExportApi {
     const pdfMakeModule = await import('pdfmake/build/pdfmake')
     const pdfFontsModule = await import('pdfmake/build/vfs_fonts')
     const pdfMake = pdfMakeModule.default || pdfMakeModule
-    const fonts = pdfFontsModule.pdfMake
-    if (fonts && fonts.vfs) {
-      pdfMake.vfs = fonts.vfs
-    } else if ((pdfFontsModule as Record<string, unknown>).default) {
-      pdfMake.vfs = (pdfFontsModule as Record<string, unknown>).default as Record<string, string>
-    }
+    const defaultVfs: Record<string, string> =
+      pdfFontsModule.pdfMake?.vfs ??
+      ((pdfFontsModule as Record<string, unknown>).default as Record<string, string> | undefined) ??
+      {}
     const noto = await loadNotoSansJp()
-    pdfMake.vfs = { ...pdfMake.vfs, ...noto.vfs }
-    pdfMake.fonts = {
+    pdfMake.addVirtualFileSystem({ ...defaultVfs, ...noto.vfs })
+    pdfMake.setFonts({
       Roboto: {
         normal: 'Roboto-Regular.ttf',
         bold: 'Roboto-Medium.ttf',
@@ -66,7 +64,7 @@ export function createPdfExport(store: DocumentStore): PdfExportApi {
         bolditalics: 'Roboto-MediumItalic.ttf',
       },
       ...noto.fonts,
-    }
+    })
     return pdfMake
   }
 
